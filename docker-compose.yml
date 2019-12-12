@@ -1,0 +1,9 @@
+version: '3'
+services:
+  static-server:
+    build: .
+    image: dougrich/static-server
+    volumes:
+    - ./example-static:/static
+    ports:
+    - '8080:80'
