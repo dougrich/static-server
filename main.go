@@ -33,12 +33,12 @@ func (fs FileSystem) Open(path string) (http.File, error) {
 }
 
 func main() {
-	port := flag.String("p", "3000", "port to serve on")
-	directory := flag.String("d", ".", "the directory of static file to host")
+	port := flag.String("p", "80", "port to serve on")
+	directory := flag.String("d", "/static", "the directory of static file to host")
 	flag.Parse()
 
 	fileServer := http.FileServer(FileSystem{http.Dir(*directory)})
-	http.Handle("/statics/", http.StripPrefix(strings.TrimRight("/statics/", "/"), fileServer))
+	http.Handle("/", fileServer)
 
 	log.Printf("Serving %s on HTTP port: %s\n", *directory, *port)
 	log.Fatal(http.ListenAndServe(":"+*port, nil))
